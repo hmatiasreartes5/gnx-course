@@ -14,6 +14,15 @@ mongoose.connect('mongodb://localhost/gnx',{
     console.log('Connected to data base');
 });
 
+const Types = require('./types');
+const includedTypes = Object.values(Types);
+const schema = gnx.createSchema(includedTypes,includedTypes);
+
+app.use('/graphql-API',graphqlHTTP({
+    schema,
+    graphiql: true
+}))
+
 app.listen(3000, () => {
     console.log('Listening on port 3000')
 });
